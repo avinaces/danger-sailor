@@ -1,0 +1,170 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:background="@drawable/tr"
+	android:id="@+id/paintin_board">
+	
+    <ImageView
+        android:id="@+id/star"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/star"
+        android:visibility="invisible"/>
+    
+    
+	<Button
+		android:id="@+id/settings_button"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:background="@drawable/settings"
+		android:layout_gravity="top|right"/>
+	<TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/Y_cord"
+        android:layout_gravity="bottom|left"/>
+	
+	
+<FrameLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	
+	<Button
+		android:id="@+id/opentoolbar"
+		android:layout_width="45dp"
+		android:layout_height="45dp"
+		android:layout_gravity="right|bottom"
+		android:background="@drawable/toolbaropen" />
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/undobar">
+		
+		<Button
+			android:id="@+id/undo"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:layout_gravity="left|top"
+			android:background="@drawable/undo"
+			android:visibility="visible"/>
+		
+		
+	</LinearLayout>
+	
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="90dp"
+			android:visibility="invisible"
+            android:layout_gravity="bottom"
+			android:id="@+id/toolbar">
+			
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="bottom"
+                android:background="#aa111111"
+                android:layout_marginBottom="45dp">
+                
+                <Button
+                    android:id="@+id/pick_star"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="left|bottom"
+                    android:background="@drawable/star"/>
+                
+        </LinearLayout>
+            
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+			<Button
+				android:id="@+id/green"
+				android:layout_width="45dp"
+				android:layout_height="45dp"
+				android:layout_gravity="left|bottom"
+				android:background="#9900ff00" />
+			
+			
+			
+			<Button
+				android:id="@+id/black"
+				android:layout_width="45dp"
+				android:layout_height="45dp"
+				android:layout_gravity="left|bottom"
+				android:background="#99000000" />
+			
+			<SeekBar
+				android:id="@+id/slider"
+				android:layout_width="match_parent"
+				android:layout_height="45dp"
+				android:background="#aa111111"
+				android:layout_gravity="left|bottom"
+				android:min="10"
+				android:max="100" />
+			
+            </LinearLayout>
+            
+            </FrameLayout>
+            
+		</LinearLayout>
+		
+		
+</FrameLayout>
+	
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:visibility="visible"
+		android:id="@+id/settings_layout"
+		android:background="#00111111">
+
+		<Button
+			android:id="@+id/load"
+			android:layout_width="80dp"
+			android:layout_height="75dp"
+			android:layout_gravity="top|left"
+			android:text="load image"
+			android:visibility="invisible"/>
+
+		<Button
+			android:id="@+id/save"
+			android:layout_width="80dp"
+			android:layout_height="75dp"
+			android:layout_gravity="top|left"
+			android:text="save image"
+			android:visibility="invisible"/>
+		
+		<Button
+			android:id="@+id/download"
+			android:layout_width="110dp"
+			android:layout_height="75dp"
+			android:layout_gravity="top|left"
+			android:text="download image"
+			android:visibility="invisible"/>
+
+		<Button
+			android:id="@+id/paint_level"
+			android:layout_width="140dp"
+			android:layout_height="75dp"
+			android:layout_gravity="left"
+			android:text="exit to main menu"
+			android:visibility="invisible"/>
+		
+
+		
+		
+		
+
+	</LinearLayout>
+    
+</FrameLayout>

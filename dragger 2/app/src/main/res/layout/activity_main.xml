@@ -1,0 +1,249 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@drawable/waves"
+	android:id="@+id/luquid">
+
+   
+    
+    
+	<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lvl002"
+        android:id="@+id/background">
+
+        
+        
+        
+        
+        
+        
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            
+            android:layout_gravity="center"
+            android:background="@drawable/star"
+            android:visibility="visible"/>
+        
+        <ImageView
+            android:id="@+id/draggable_object"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/dragg"
+            android:layout_gravity="bottom|center"
+            android:background="#0000ff00"/>
+
+        
+
+        <ImageView
+            android:id="@+id/rotation_object"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/dragg"
+            android:layout_gravity="bottom|center"/>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+          
+
+
+
+
+            <Button
+                android:id="@+id/my_button"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@drawable/retry"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/settings_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/settings"
+                android:layout_gravity="top|right"/>
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/burbulilayout"
+                android:elevation="-1dp">
+
+
+
+
+            </FrameLayout>
+            
+            <TextView
+                android:id="@+id/moneyLabel"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="0"
+                android:layout_gravity="top|left"
+                android:textColor="#FF110E4F"
+                android:background="@drawable/money_count"
+                android:gravity="center"/>
+
+            <ScrollView
+                android:id="@+id/levelselector"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:background="#DD111111">
+
+              
+                
+                <!-- Add the content that you want to display inside the scroll view here -->
+                
+                <!-- For example, you could add a LinearLayout with vertical orientation -->
+                
+
+            </ScrollView>
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:id="@+id/all_settings">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="top"
+                    android:id="@+id/cheates"
+                    android:visibility="visible"
+                    android:layout_marginTop="75dp">
+
+                    <Switch
+                        android:layout_width="100dp"
+                        android:layout_height="75dp"
+                        android:visibility="visible"
+                        android:id="@+id/teleport"
+                        android:text="can teleport|off"
+                        android:background="@drawable/teleport"/>
+
+
+                    <Button
+                        android:layout_width="85dp"
+                        android:layout_height="75dp"
+                        android:visibility="visible"
+                        android:id="@+id/skiplevels"
+                        android:text="open level menu"
+                        android:background="@drawable/pick_level"/>
+
+
+                    <Button
+                        android:layout_width="85dp"
+                        android:layout_height="75dp"
+                        android:visibility="visible"
+                        android:id="@+id/skipthislevel"
+                        android:text="skip this level"
+                        android:background="@drawable/skip_level"/>
+                    
+                    <Button
+                        android:layout_width="95dp"
+                        android:layout_height="75dp"
+                        android:visibility="visible"
+                        android:id="@+id/reaload"
+                        android:text="reaload this level"
+                        android:background="@drawable/reload"/>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:visibility="visible"
+                    android:id="@+id/settings_layout"
+                    android:background="#00111111">
+
+
+
+                    <Button
+                        android:id="@+id/swich_test"
+                        android:layout_width="100dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="top|left"
+                        android:text="show hitbox|off"
+                        android:visibility="invisible"/>
+
+                    <Button
+                        android:id="@+id/green_hitbox"
+                        android:layout_width="110dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="top|left"
+                        android:text="show real object|off"
+                        android:visibility="invisible"/>
+
+                    <Button
+                        android:id="@+id/paint_level"
+                        android:layout_width="140dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="top|left"
+                        android:text="exit to main menu"
+                        android:visibility="invisible"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/you_win"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/you_win"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:background="#993F51B5"/>
+            
+            <ImageView
+                android:id="@+id/you_lose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/you_lose"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:background="#993F51B5"/>
+
+            
+
+
+            <ImageView
+                android:id="@+id/loading"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/loading"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@drawable/next"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+            
+
+        </FrameLayout>
+
+        
+
+    </FrameLayout>
+
+</FrameLayout>
+

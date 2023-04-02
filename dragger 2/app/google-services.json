@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293921152569",
+    "project_id": "danger-sailor",
+    "storage_bucket": "danger-sailor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293921152569:android:69a85ccd65dab18addf7e8",
+        "android_client_info": {
+          "package_name": "com.enchantedswords.dragger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293921152569-37vktggj04h0uhna1vb85na2jc5ii5le.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Q-RoA-A_Oo7EP_e4bTbjLwot9sSiKyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293921152569-37vktggj04h0uhna1vb85na2jc5ii5le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

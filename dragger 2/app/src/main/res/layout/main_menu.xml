@@ -1,0 +1,251 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/main_menu1">
+
+    
+    
+    
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="320dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center|top"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/logo1"/>
+    
+    
+    <TextView
+        android:id="@+id/moneyLabel"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="0"
+        android:layout_gravity="top|left"
+        android:textColor="#FF110E4F"
+        android:background="@drawable/money_count"
+        android:gravity="center"
+        android:visibility="invisible"/>
+    
+    
+    
+
+    
+    
+    
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="225dp"
+        android:text="play"
+        android:textSize="40dp"
+        android:visibility="visible"
+        android:stateListAnimator="@anim/button_anim"
+        android:textColor="#FF110E4F"/>
+
+    <Button
+        android:id="@+id/level_paint"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="150dp"
+        android:text="level painting"
+        android:textSize="21.5dp"
+        android:visibility="visible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+    
+    
+    <Button
+        android:id="@+id/level_menu"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="75dp"
+        android:text="level menu"
+        android:textSize="28dp"
+        android:visibility="visible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+    
+    
+    <Button
+        android:id="@+id/my_levels"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="my levels"
+        android:textSize="32.2dp"
+        android:visibility="visible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+    
+    
+    <Button
+        android:id="@+id/shop"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="75dp"
+        android:text="shop"
+        android:textSize="40dp"
+        android:visibility="visible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+    
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="150dp"
+        android:text="settings"
+        android:textSize="31dp"
+        android:visibility="visible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+    
+    
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="225dp"
+        android:text="Quit"
+        android:textSize="40dp"
+        android:visibility="visible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+
+    
+    <ScrollView
+        android:id="@+id/levelselector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="@drawable/main_menu1"
+        android:paddingBottom="90dp">
+
+     
+        <!-- Add the content that you want to display inside the scroll view here -->
+
+        <!-- For example, you could add a LinearLayout with vertical orientation -->
+
+
+    </ScrollView>
+    
+    
+    <FrameLayout
+        android:id="@+id/shoplayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="@drawable/shop">
+        
+        <Button
+            android:id="@+id/money"
+            android:layout_width="225dp"
+            android:layout_height="75dp"
+            android:background="@drawable/button"
+            android:layout_gravity="top|right"
+            android:layout_marginBottom="225dp"
+            android:text="money"
+            android:textSize="40dp"
+            android:visibility="visible"
+            android:stateListAnimator="@anim/button_anim"
+            android:textColor="#FF110E4F"/>
+        
+        <Button
+            android:id="@+id/boat2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/boat2"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"
+            android:textColor="#FF110E4F"
+            android:stateListAnimator="@anim/button_anim"/>
+        
+        
+        <TextView
+            android:id="@+id/boat2_price"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="50"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="105dp"
+            android:layout_gravity="top|left"
+            android:textColor="#FF110E4F"
+            android:gravity="center"
+            android:fontFamily="@font/font"/>
+        
+        
+        
+        <Button
+            android:id="@+id/boat3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/boat"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="40dp"
+            android:textColor="#FF110E4F"
+            android:stateListAnimator="@anim/button_anim"/>
+
+
+        <TextView
+            android:id="@+id/boat3_price"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="50"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="105dp"
+            android:layout_gravity="top|left"
+            android:textColor="#FF110E4F"
+            android:gravity="center"
+            android:fontFamily="@font/font"/>
+        
+        
+        
+    </FrameLayout>
+    
+    
+    <FrameLayout
+        android:id="@+id/settingslayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="#EE000000">
+        
+        
+        
+    </FrameLayout>
+    
+    
+    <Button
+        android:id="@+id/back"
+        android:layout_width="225dp"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center|bottom"
+        android:text="back"
+        android:textSize="40dp"
+        android:visibility="invisible"
+        android:textColor="#FF110E4F"
+        android:stateListAnimator="@anim/button_anim"/>
+    
+    
+    
+</FrameLayout>
+
