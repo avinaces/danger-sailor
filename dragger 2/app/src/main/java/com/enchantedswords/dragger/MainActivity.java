@@ -504,35 +504,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 // Start the animation
                     rotation.start();
 
-                    if (level >= 29) {
-
-                        int starlevel = level - 28;
-
-
-
-                        float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
-
-                        ImageView image2 = findViewById(R.id.star);
-
-                        if(stary != 12345.0f) {
-                            image2.setY(stary-(image2.getHeight()/2));
-                            image2.setVisibility(View.VISIBLE);
-                            ismoneycollected=false;
-                        } else {
-
-                        }
-
-                        float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
-
-                        if(starx != 12345.0f) {
-                            image2.setX(starx-(image2.getWidth()/2));
-                            image2.setVisibility(View.VISIBLE);
-                            ismoneycollected=false;
-                        } else {
-
-                        }
-
-                    }
+                    
 
                     
 
@@ -543,8 +515,67 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     // Load the level 2 image (this may take some time)
 
 
+                    if (level >= levelcount) {
+
+                        int starlevel = level - fakelevelcount;
+
+
+
+                        float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
+
+                        ImageView star = findViewById(R.id.star);
+
+                        if(stary != 12345.0f) {
+                            star.setY(stary-(star.getHeight()/2));
+                            star.setVisibility(View.VISIBLE);
+                            ismoneycollected=false;
+                        } else {
+
+                        }
+
+                        float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
+
+                        if(starx != 12345.0f) {
+                            star.setX(starx-(star.getWidth()/2));
+                            star.setVisibility(View.VISIBLE);
+                            ismoneycollected=false;
+                        } else {
+
+                        }
+
+                    }
+
+                    else
+                    {
+                        ImageView star = findViewById(R.id.star);
+
+                        if(level == 2)
+                        {
+                            star.setY(screenHeight/2);
+                            star.setX(((screenWidth/2) + screenWidth/4));
+                        }else
+                        {
+                            star.setY((screenHeight/2)-(star.getHeight()/2));
+                            star.setX((screenWidth/2)-(star.getWidth()/2));
+
+                        }
+
+                        if(level == 6)
+                        {
+                            star.setY((screenHeight/2)-(star.getHeight()/2));
+                            star.setX((screenWidth/2)-(star.getHeight()/5));
+
+                        }
+
+                        star.setVisibility(View.VISIBLE);
+                        ismoneycollected=false;
+
+                    }
+
+
+
                     Bitmap originalBitmap;
-                    if (level <= 28) {
+                    if (level <= fakelevelcount) {
                         originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
                     } else {
                         // Get the external files directory
@@ -555,6 +586,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                         if (!levelsDirectory.exists()) {
                             Log.e("Error", "The 'levels' directory does not exist");
+                            youwin.setVisibility(View.INVISIBLE);
+                            loading.setVisibility(View.INVISIBLE);
+                            isonpause = false;
                             return;
                         }
 
@@ -578,14 +612,16 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                             });
 
 
-                        if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
+                        if (levelFiles == null || levelFiles.length == 0 || level - levelcount >= levelFiles.length) {
                             Log.e("Error", "No level file found for level " + level);
+                            youwin.setVisibility(View.INVISIBLE);
+                            loading.setVisibility(View.INVISIBLE);
+                            isonpause = false;
                             return;
                         }
 
-                        originalBitmap = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
+                        originalBitmap = BitmapFactory.decodeFile(levelFiles[level - levelcount].getPath());
                     }
-                    
                     
                     
                     
@@ -953,19 +989,19 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
 
 
-                                                if (level >= 29) {
+                                                if (level >= levelcount) {
 
-                                                    int starlevel = level - 28;
+                                                    int starlevel = level - fakelevelcount;
 
 
 
                                                     float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
 
-                                                    ImageView image2 = findViewById(R.id.star);
+                                                    ImageView star = findViewById(R.id.star);
 
                                                     if(stary != 12345.0f) {
-                                                        image2.setY(stary-(image2.getHeight()/2));
-                                                        image2.setVisibility(View.VISIBLE);
+                                                        star.setY(stary-(star.getHeight()/2));
+                                                        star.setVisibility(View.VISIBLE);
                                                         ismoneycollected=false;
                                                     } else {
 
@@ -974,8 +1010,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                                                     float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
 
                                                     if(starx != 12345.0f) {
-                                                        image2.setX(starx-(image2.getWidth()/2));
-                                                        image2.setVisibility(View.VISIBLE);
+                                                        star.setX(starx-(star.getWidth()/2));
+                                                        star.setVisibility(View.VISIBLE);
                                                         ismoneycollected=false;
                                                     } else {
 
@@ -983,12 +1019,37 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                                                 }
 
+                                                else
+                                                {
+                                                    ImageView star = findViewById(R.id.star);
 
+                                                    if(level == 2)
+                                                    {
+                                                        star.setY(screenHeight/2);
+                                                        star.setX(((screenWidth/2) + screenWidth/4));
+                                                    }else
+                                                    {
+                                                        star.setY((screenHeight/2)-(star.getHeight()/2));
+                                                        star.setX((screenWidth/2)-(star.getWidth()/2));
+
+                                                    }
+
+                                                    if(level == 6)
+                                                    {
+                                                        star.setY((screenHeight/2)-(star.getHeight()/2));
+                                                        star.setX((screenWidth/2)-(star.getHeight()/5));
+
+                                                    }
+
+                                                    star.setVisibility(View.VISIBLE);
+                                                    ismoneycollected=false;
+
+                                                }
 
 
 
                                                 Bitmap originalBitmap;
-                                                if (level <= 28) {
+                                                if (level <= fakelevelcount) {
                                                     originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
                                                 } else {
                                                     // Get the external files directory
@@ -999,6 +1060,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                                                     if (!levelsDirectory.exists()) {
                                                         Log.e("Error", "The 'levels' directory does not exist");
+                                                        youwin.setVisibility(View.INVISIBLE);
+                                                        loading.setVisibility(View.INVISIBLE);
+                                                        isonpause = false;
                                                         return;
                                                     }
 
@@ -1022,14 +1086,16 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                                                         });
 
 
-                                                    if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
+                                                    if (levelFiles == null || levelFiles.length == 0 || level - levelcount >= levelFiles.length) {
                                                         Log.e("Error", "No level file found for level " + level);
+                                                        youwin.setVisibility(View.INVISIBLE);
+                                                        loading.setVisibility(View.INVISIBLE);
+                                                        isonpause = false;
                                                         return;
                                                     }
 
-                                                    originalBitmap = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
+                                                    originalBitmap = BitmapFactory.decodeFile(levelFiles[level - levelcount].getPath());
                                                 }
-
 
 
 
@@ -1264,19 +1330,19 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
 
 
-        if (level >= 29) {
+        if (level >= levelcount) {
 
-            int starlevel = level - 28;
+            int starlevel = level - fakelevelcount;
 
 
 
             float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
 
-            ImageView image2 = findViewById(R.id.star);
+            ImageView star = findViewById(R.id.star);
 
             if(stary != 12345.0f) {
-                image2.setY(stary-(image2.getHeight()/2));
-                image2.setVisibility(View.VISIBLE);
+                star.setY(stary-(star.getHeight()/2));
+                star.setVisibility(View.VISIBLE);
                 ismoneycollected=false;
             } else {
 
@@ -1285,8 +1351,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
 
             if(starx != 12345.0f) {
-                image2.setX(starx-(image2.getWidth()/2));
-                image2.setVisibility(View.VISIBLE);
+                star.setX(starx-(star.getWidth()/2));
+                star.setVisibility(View.VISIBLE);
                 ismoneycollected=false;
             } else {
 
@@ -1294,11 +1360,37 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
         }
 
+        else
+        {
+            ImageView star = findViewById(R.id.star);
+
+            if(level == 2)
+            {
+                star.setY(screenHeight/2);
+                star.setX(((screenWidth/2) + screenWidth/4));
+            }else
+            {
+                star.setY((screenHeight/2)-(star.getHeight()/2));
+                star.setX((screenWidth/2)-(star.getWidth()/2));
+
+            }
+
+            if(level == 6)
+            {
+                star.setY((screenHeight/2)-(star.getHeight()/2));
+                star.setX((screenWidth/2)-(star.getHeight()/5));
+
+            }
+
+            star.setVisibility(View.VISIBLE);
+            ismoneycollected=false;
+
+        }
 
 
 
         Bitmap originalBitmap;
-        if (level <= 28) {
+        if (level <= fakelevelcount) {
             originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
         } else {
             // Get the external files directory
@@ -1309,6 +1401,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
             if (!levelsDirectory.exists()) {
                 Log.e("Error", "The 'levels' directory does not exist");
+                youwin.setVisibility(View.INVISIBLE);
+                loading.setVisibility(View.INVISIBLE);
+                isonpause = false;
                 return;
             }
 
@@ -1332,12 +1427,15 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                 });
 
 
-            if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
+            if (levelFiles == null || levelFiles.length == 0 || level - levelcount >= levelFiles.length) {
                 Log.e("Error", "No level file found for level " + level);
+                youwin.setVisibility(View.INVISIBLE);
+                loading.setVisibility(View.INVISIBLE);
+                isonpause = false;
                 return;
             }
 
-            originalBitmap = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
+            originalBitmap = BitmapFactory.decodeFile(levelFiles[level - levelcount].getPath());
         }
 
 
