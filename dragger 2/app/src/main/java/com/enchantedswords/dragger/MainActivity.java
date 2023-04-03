@@ -268,7 +268,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     if(level == 6)
                     {
                         star.setY((screenHeight/2)-(star.getHeight()/2));
-                        star.setX((screenWidth/2)-(star.getHeight()/4.5f));
+                        star.setX((screenWidth/2)-(star.getHeight()/5));
                         
                     }
                     
