@@ -346,13 +346,12 @@ public class  level_paint extends Activity {
 				// Get the x and y coordinates of the touch event
 			//	float exp = -(((float) ((screenHeight*0.2) * Math.exp(event.getY()/screenHeight) + (screenHeight*3)))/50);
 			    x = event.getX();
-				float strap = (event.getY() -screenHeight/(float)1.7);
-                y = (event.getY()-(screenHeight/30)); //((screenHeight - event.getY())/5))-((strap*strap*strap)/(screenHeight*2303));
+				//float strap = (event.getY() -screenHeight/(float)1.7);
+               // y = (event.getY()-((screenHeight - event.getY())/5))-((strap*strap*strap)/(screenHeight*2303));
+                y = (event.getY()-(screenHeight/30));
                 
                 
-                
-                
-                
+               
                
 				if (firsttime) {
 					oldX = x;

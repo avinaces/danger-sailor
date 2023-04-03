@@ -187,8 +187,7 @@
             android:layout_marginTop="105dp"
             android:layout_gravity="top|left"
             android:textColor="#FF110E4F"
-            android:gravity="center"
-            android:fontFamily="@font/font"/>
+            android:gravity="center"/>
         
         
         
@@ -213,8 +212,7 @@
             android:layout_marginTop="105dp"
             android:layout_gravity="top|left"
             android:textColor="#FF110E4F"
-            android:gravity="center"
-            android:fontFamily="@font/font"/>
+            android:gravity="center"/>
         
         
         
