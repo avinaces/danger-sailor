@@ -603,9 +603,6 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     
                     
                     
-                    
-
-
 
 
                     // Process the bitmap on a separate thread
