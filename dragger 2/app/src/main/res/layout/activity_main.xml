@@ -28,6 +28,14 @@
             android:background="@drawable/star"
             android:visibility="visible"/>
         
+		<ImageView
+            android:id="@+id/hitbox"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="#9900FF00"
+            android:visibility="visible"/>
+		
         <ImageView
             android:id="@+id/draggable_object"
             android:layout_width="50dp"

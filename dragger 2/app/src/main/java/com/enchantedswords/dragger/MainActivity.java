@@ -1,47 +1,66 @@
 package com.enchantedswords.dragger;
  
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
-import android.animation.StateListAnimator;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.os.Handler;
+import android.widget.Button;
+import android.util.DisplayMetrics;
+import android.graphics.drawable.BitmapDrawable;
+import android.animation.ObjectAnimator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Switch;
-import android.widget.TextView;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
+
+import android.os.Environment;
+import android.content.Context;
 import java.io.File;
-import java.lang.reflect.Field;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.FileInputStream;
+import android.content.Intent;
+import android.util.Half;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.util.Log;
+import android.media.MediaPlayer;
+import java.util.Random;
+import android.graphics.drawable.DrawableContainer;
+import android.graphics.drawable.Drawable;
+import java.util.List;
 import java.util.ArrayList;
+import android.util.Pair;
+import android.graphics.Rect;
+import android.widget.TextView;
+import java.util.Map;
+import java.util.HashMap;
+
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import android.widget.ScrollView;
+import java.lang.reflect.Field;
+import android.content.res.Resources;
+import android.content.SharedPreferences;
+import android.widget.CompoundButton;
+import android.os.Build;
+import android.animation.StateListAnimator;
+import android.animation.AnimatorInflater;
+import android.widget.AbsListView.LayoutParams;
+import android.view.Gravity;
 
 
 
@@ -228,11 +247,11 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                         float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
 
-                        ImageView star = findViewById(R.id.star);
+                        ImageView image2 = findViewById(R.id.star);
 
                         if(stary != 12345.0f) {
-                            star.setY(stary-(star.getHeight()/2));
-                            star.setVisibility(View.VISIBLE);
+                            image2.setY(stary-(image2.getHeight()/2));
+                            image2.setVisibility(View.VISIBLE);
                             ismoneycollected=false;
                         } else {
 
@@ -241,8 +260,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                         float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
 
                         if(starx != 12345.0f) {
-                            star.setX(starx-(star.getWidth()/2));
-                            star.setVisibility(View.VISIBLE);
+                            image2.setX(starx-(image2.getWidth()/2));
+                            image2.setVisibility(View.VISIBLE);
                             ismoneycollected=false;
                         } else {
 
@@ -260,15 +279,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                         star.setX(((screenWidth/2) + screenWidth/4));
                     }else
                     {
-                        star.setY((screenHeight/2)-(star.getHeight()/2));
-                        star.setX((screenWidth/2)-(star.getWidth()/2));
-                        
-                    }
-                    
-                    if(level == 6)
-                    {
-                        star.setY((screenHeight/2)-(star.getHeight()/2));
-                        star.setX((screenWidth/2)-(star.getHeight()/5));
+                        star.setY(screenHeight/2);
+                        star.setX(screenWidth/2);
                         
                     }
                     
@@ -293,6 +305,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                             Log.e("Error", "The 'levels' directory does not exist");
                             youwin.setVisibility(View.INVISIBLE);
                             loading.setVisibility(View.INVISIBLE);
+							rotateobject.setVisibility(View.VISIBLE);
 							isonpause = false;
                             return;
                         }
@@ -321,6 +334,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                             Log.e("Error", "No level file found for level " + level);
                             youwin.setVisibility(View.INVISIBLE);
                             loading.setVisibility(View.INVISIBLE);
+							rotateobject.setVisibility(View.VISIBLE);
 							isonpause = false;
                             return;
                         }
@@ -451,6 +465,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 									@Override
 									public void run() {
 										loading.setVisibility(View.INVISIBLE);
+										rotateobject.setVisibility(View.VISIBLE);
 									}
 								}, 10); // 1000 milliseconds = 1 second
 						}
@@ -504,7 +519,35 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 // Start the animation
                     rotation.start();
 
-                    
+                    if (level >= 29) {
+
+                        int starlevel = level - 28;
+
+
+
+                        float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
+
+                        ImageView image2 = findViewById(R.id.star);
+
+                        if(stary != 12345.0f) {
+                            image2.setY(stary-(image2.getHeight()/2));
+                            image2.setVisibility(View.VISIBLE);
+                            ismoneycollected=false;
+                        } else {
+
+                        }
+
+                        float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
+
+                        if(starx != 12345.0f) {
+                            image2.setX(starx-(image2.getWidth()/2));
+                            image2.setVisibility(View.VISIBLE);
+                            ismoneycollected=false;
+                        } else {
+
+                        }
+
+                    }
 
                     
 
@@ -515,67 +558,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     // Load the level 2 image (this may take some time)
 
 
-                    if (level >= levelcount) {
-
-                        int starlevel = level - fakelevelcount;
-
-
-
-                        float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
-
-                        ImageView star = findViewById(R.id.star);
-
-                        if(stary != 12345.0f) {
-                            star.setY(stary-(star.getHeight()/2));
-                            star.setVisibility(View.VISIBLE);
-                            ismoneycollected=false;
-                        } else {
-
-                        }
-
-                        float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
-
-                        if(starx != 12345.0f) {
-                            star.setX(starx-(star.getWidth()/2));
-                            star.setVisibility(View.VISIBLE);
-                            ismoneycollected=false;
-                        } else {
-
-                        }
-
-                    }
-
-                    else
-                    {
-                        ImageView star = findViewById(R.id.star);
-
-                        if(level == 2)
-                        {
-                            star.setY(screenHeight/2);
-                            star.setX(((screenWidth/2) + screenWidth/4));
-                        }else
-                        {
-                            star.setY((screenHeight/2)-(star.getHeight()/2));
-                            star.setX((screenWidth/2)-(star.getWidth()/2));
-
-                        }
-
-                        if(level == 6)
-                        {
-                            star.setY((screenHeight/2)-(star.getHeight()/2));
-                            star.setX((screenWidth/2)-(star.getHeight()/5));
-
-                        }
-
-                        star.setVisibility(View.VISIBLE);
-                        ismoneycollected=false;
-
-                    }
-
-
-
                     Bitmap originalBitmap;
-                    if (level <= fakelevelcount) {
+                    if (level <= 28) {
                         originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
                     } else {
                         // Get the external files directory
@@ -586,9 +570,6 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                         if (!levelsDirectory.exists()) {
                             Log.e("Error", "The 'levels' directory does not exist");
-                            youwin.setVisibility(View.INVISIBLE);
-                            loading.setVisibility(View.INVISIBLE);
-                            isonpause = false;
                             return;
                         }
 
@@ -612,21 +593,16 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                             });
 
 
-                        if (levelFiles == null || levelFiles.length == 0 || level - levelcount >= levelFiles.length) {
+                        if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
                             Log.e("Error", "No level file found for level " + level);
-                            youwin.setVisibility(View.INVISIBLE);
-                            loading.setVisibility(View.INVISIBLE);
-                            isonpause = false;
                             return;
                         }
 
-                        originalBitmap = BitmapFactory.decodeFile(levelFiles[level - levelcount].getPath());
+                        originalBitmap = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
                     }
                     
                     
                     
-
-
 
 
                     // Process the bitmap on a separate thread
@@ -908,6 +884,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 					rotateobject.setRotation(0);
 					youlose.setVisibility(View.INVISIBLE);
 					myButton.setVisibility(View.INVISIBLE);
+					rotateobject.setVisibility(View.VISIBLE);
 					isonpause = false;
 				}
 			});
@@ -989,19 +966,19 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
 
 
-                                                if (level >= levelcount) {
+                                                if (level >= 29) {
 
-                                                    int starlevel = level - fakelevelcount;
+                                                    int starlevel = level - 28;
 
 
 
                                                     float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
 
-                                                    ImageView star = findViewById(R.id.star);
+                                                    ImageView image2 = findViewById(R.id.star);
 
                                                     if(stary != 12345.0f) {
-                                                        star.setY(stary-(star.getHeight()/2));
-                                                        star.setVisibility(View.VISIBLE);
+                                                        image2.setY(stary-(image2.getHeight()/2));
+                                                        image2.setVisibility(View.VISIBLE);
                                                         ismoneycollected=false;
                                                     } else {
 
@@ -1010,8 +987,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                                                     float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
 
                                                     if(starx != 12345.0f) {
-                                                        star.setX(starx-(star.getWidth()/2));
-                                                        star.setVisibility(View.VISIBLE);
+                                                        image2.setX(starx-(image2.getWidth()/2));
+                                                        image2.setVisibility(View.VISIBLE);
                                                         ismoneycollected=false;
                                                     } else {
 
@@ -1019,37 +996,12 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                                                 }
 
-                                                else
-                                                {
-                                                    ImageView star = findViewById(R.id.star);
 
-                                                    if(level == 2)
-                                                    {
-                                                        star.setY(screenHeight/2);
-                                                        star.setX(((screenWidth/2) + screenWidth/4));
-                                                    }else
-                                                    {
-                                                        star.setY((screenHeight/2)-(star.getHeight()/2));
-                                                        star.setX((screenWidth/2)-(star.getWidth()/2));
-
-                                                    }
-
-                                                    if(level == 6)
-                                                    {
-                                                        star.setY((screenHeight/2)-(star.getHeight()/2));
-                                                        star.setX((screenWidth/2)-(star.getHeight()/5));
-
-                                                    }
-
-                                                    star.setVisibility(View.VISIBLE);
-                                                    ismoneycollected=false;
-
-                                                }
 
 
 
                                                 Bitmap originalBitmap;
-                                                if (level <= fakelevelcount) {
+                                                if (level <= 28) {
                                                     originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
                                                 } else {
                                                     // Get the external files directory
@@ -1060,9 +1012,6 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
                                                     if (!levelsDirectory.exists()) {
                                                         Log.e("Error", "The 'levels' directory does not exist");
-                                                        youwin.setVisibility(View.INVISIBLE);
-                                                        loading.setVisibility(View.INVISIBLE);
-                                                        isonpause = false;
                                                         return;
                                                     }
 
@@ -1086,16 +1035,14 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                                                         });
 
 
-                                                    if (levelFiles == null || levelFiles.length == 0 || level - levelcount >= levelFiles.length) {
+                                                    if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
                                                         Log.e("Error", "No level file found for level " + level);
-                                                        youwin.setVisibility(View.INVISIBLE);
-                                                        loading.setVisibility(View.INVISIBLE);
-                                                        isonpause = false;
                                                         return;
                                                     }
 
-                                                    originalBitmap = BitmapFactory.decodeFile(levelFiles[level - levelcount].getPath());
+                                                    originalBitmap = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
                                                 }
+
 
 
 
@@ -1330,19 +1277,19 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
 
 
-        if (level >= levelcount) {
+        if (level >= 29) {
 
-            int starlevel = level - fakelevelcount;
+            int starlevel = level - 28;
 
 
 
             float stary = test.readFromDownloadsDirectory(context,"y_cord" + (starlevel == 1 ? "" : starlevel));
 
-            ImageView star = findViewById(R.id.star);
+            ImageView image2 = findViewById(R.id.star);
 
             if(stary != 12345.0f) {
-                star.setY(stary-(star.getHeight()/2));
-                star.setVisibility(View.VISIBLE);
+                image2.setY(stary-(image2.getHeight()/2));
+                image2.setVisibility(View.VISIBLE);
                 ismoneycollected=false;
             } else {
 
@@ -1351,8 +1298,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             float starx = test.readFromDownloadsDirectory(context, "x_cord" + (starlevel == 1 ? "" : starlevel));
 
             if(starx != 12345.0f) {
-                star.setX(starx-(star.getWidth()/2));
-                star.setVisibility(View.VISIBLE);
+                image2.setX(starx-(image2.getWidth()/2));
+                image2.setVisibility(View.VISIBLE);
                 ismoneycollected=false;
             } else {
 
@@ -1360,37 +1307,11 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
         }
 
-        else
-        {
-            ImageView star = findViewById(R.id.star);
-
-            if(level == 2)
-            {
-                star.setY(screenHeight/2);
-                star.setX(((screenWidth/2) + screenWidth/4));
-            }else
-            {
-                star.setY((screenHeight/2)-(star.getHeight()/2));
-                star.setX((screenWidth/2)-(star.getWidth()/2));
-
-            }
-
-            if(level == 6)
-            {
-                star.setY((screenHeight/2)-(star.getHeight()/2));
-                star.setX((screenWidth/2)-(star.getHeight()/5));
-
-            }
-
-            star.setVisibility(View.VISIBLE);
-            ismoneycollected=false;
-
-        }
 
 
 
         Bitmap originalBitmap;
-        if (level <= fakelevelcount) {
+        if (level <= 28) {
             originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
         } else {
             // Get the external files directory
@@ -1401,9 +1322,6 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
             if (!levelsDirectory.exists()) {
                 Log.e("Error", "The 'levels' directory does not exist");
-                youwin.setVisibility(View.INVISIBLE);
-                loading.setVisibility(View.INVISIBLE);
-                isonpause = false;
                 return;
             }
 
@@ -1427,15 +1345,12 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                 });
 
 
-            if (levelFiles == null || levelFiles.length == 0 || level - levelcount >= levelFiles.length) {
+            if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
                 Log.e("Error", "No level file found for level " + level);
-                youwin.setVisibility(View.INVISIBLE);
-                loading.setVisibility(View.INVISIBLE);
-                isonpause = false;
                 return;
             }
 
-            originalBitmap = BitmapFactory.decodeFile(levelFiles[level - levelcount].getPath());
+            originalBitmap = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
         }
 
 
@@ -1591,13 +1506,32 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 		 int[] objectCoordinates = new int[2];
 		draggableObject.getLocationInWindow(objectCoordinates);
 		
-		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		final int screenWidth = displayMetrics.widthPixels;
+		final int screenHeight = displayMetrics.heightPixels;
 
 		 double left = objectCoordinates[0];
+		 
+		int Halfscreenh = screenHeight / 2;
+		 
 		 double top = objectCoordinates[1] - (draggableObject.getHeight() * 1.1);
+		 
+		if(objectCoordinates[1] < Halfscreenh)
+		{
+			top = top - ((Halfscreenh-objectCoordinates[1])/11);
+		}
+		else
+		{
+			top = top - ((Halfscreenh-objectCoordinates[1])/14);
+		}
+		 
 		 double right = left + draggableObject.getWidth();
 	     double bottom = top + draggableObject.getHeight();
-
+		
+		
+		 
+		 
 		// Check the color of all pixels that the draggable object covers
 		for (double x = left; x < right; x++) {
 			for (double y = top; y < bottom; y++) {
@@ -1742,133 +1676,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     }
     
 	
-	private void backgroundtexturechanger1() {
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-		final int screenWidth = displayMetrics.widthPixels;
-		final int screenHeight = displayMetrics.heightPixels;
-        FrameLayout background = (FrameLayout) findViewById(R.id.background);
-        
-        
-        
-        
-        Bitmap originalBitmapBTC;
-        if (level <= 28) {
-            originalBitmapBTC = BitmapFactory.decodeResource(getResources(), R.drawable.lvl0 + level);
-        } else {
-            // Get the external files directory
-            File externalFilesDir = getExternalFilesDir(null);
-
-// Create a directory reference to the "levels" directory inside the external files directory
-            File levelsDirectory = new File(externalFilesDir, "levels");
-
-            if (!levelsDirectory.exists()) {
-                Log.e("Error", "The 'levels' directory does not exist");
-                return;
-            }
-
-// Get a list of all files in the levelsDirectory
-            File[] levelFiles = levelsDirectory.listFiles();
-
-// Sort the files in ascending order based on the last four digits of their names
-            Arrays.sort(levelFiles, new Comparator<File>() {
-                    @Override
-                    public int compare(File file1, File file2) {
-                        String fileName1 = file1.getName();
-                        String fileName2 = file2.getName();
-
-                        // Extract the last four digits of each file name
-                        int fileNumber1 = Integer.parseInt(fileName1.substring(fileName1.length() - 8, fileName1.length() - 4));
-                        int fileNumber2 = Integer.parseInt(fileName2.substring(fileName2.length() - 8, fileName2.length() - 4));
-
-                        // Compare the last four digits of each file name
-                        return Integer.compare(fileNumber1, fileNumber2);
-                    }
-                });
-
-
-            if (levelFiles == null || levelFiles.length == 0 || level - 29 >= levelFiles.length) {
-                Log.e("Error", "No level file found for level " + level);
-                return;
-            }
-
-            originalBitmapBTC = BitmapFactory.decodeFile(levelFiles[level - 29].getPath());
-        }
-
-		// Reduce the size of the level bitmap
-		Bitmap levelBitmap = Bitmap.createScaledBitmap(originalBitmapBTC, screenWidth, screenHeight, true);
-
-		// Load the texture bitmap
-		if (textureBitmap == null | ostatexture == null | level >= 0) {
-            
-            // Declare a Map to store the loaded bitmaps
-            Map<Integer, Bitmap> loadedBitmaps = new HashMap<>();
-
-            if (level >= 20) {
-                if (!loadedBitmaps.containsKey(R.drawable.mtexture3)) {
-                    Bitmap textureBitmapBTC = BitmapFactory.decodeResource(getResources(), R.drawable.mtexture3);
-                    Bitmap textureBitmap = Bitmap.createScaledBitmap(textureBitmapBTC, screenWidth, screenHeight, true);
-                    loadedBitmaps.put(R.drawable.mtexture3, textureBitmap);
-                }
-                textureBitmap = loadedBitmaps.get(R.drawable.mtexture3);
-            } else if (level >= 10) {
-                if (!loadedBitmaps.containsKey(R.drawable.mtexture2)) {
-                    Bitmap textureBitmapBTC = BitmapFactory.decodeResource(getResources(), R.drawable.mtexture2);
-                    Bitmap textureBitmap = Bitmap.createScaledBitmap(textureBitmapBTC, screenWidth, screenHeight, true);
-                    loadedBitmaps.put(R.drawable.mtexture2, textureBitmap);
-                }
-                textureBitmap = loadedBitmaps.get(R.drawable.mtexture2);
-            } else {
-                if (!loadedBitmaps.containsKey(R.drawable.mtexture)) {
-                    Bitmap textureBitmapBTC = BitmapFactory.decodeResource(getResources(), R.drawable.mtexture);
-                    Bitmap textureBitmap = Bitmap.createScaledBitmap(textureBitmapBTC, screenWidth, screenHeight, true);
-                    loadedBitmaps.put(R.drawable.mtexture, textureBitmap);
-                }
-                textureBitmap = loadedBitmaps.get(R.drawable.mtexture);
-            }
-
-            if (!loadedBitmaps.containsKey(R.drawable.osta)) {
-                Bitmap ostatextureBTC = BitmapFactory.decodeResource(getResources(), R.drawable.osta);
-                Bitmap ostatexture = Bitmap.createScaledBitmap(ostatextureBTC, screenWidth, screenHeight, true);
-                loadedBitmaps.put(R.drawable.osta, ostatexture);
-            }
-            ostatexture = loadedBitmaps.get(R.drawable.osta);
-            }
-
-		// Copy the level bitmap so we can modify the copy without affecting the original
-	Bitmap newBitmap = levelBitmap.copy(levelBitmap.getConfig(), true);
-
-		// Process each pixel in the copy
-		 // keep track of current x position
-
-        for (int x = 0; x < newBitmap.getWidth(); x++) {
-            for (int y = 0; y < newBitmap.getHeight(); y++) {
-                int pixelColor = newBitmap.getPixel(x, y);
-                if (Color.alpha(pixelColor) == 255 && Color.red(pixelColor) == 0 && Color.green(pixelColor) == 0 && Color.blue(pixelColor) == 0) {
-                    int replacePixel = textureBitmap.getPixel(x, y);
-                    newBitmap.setPixel(x, y, replacePixel);
-
-                 }
-                int greenpixelColor = newBitmap.getPixel(x, y);
-                if (Color.red(greenpixelColor) == 0 && Color.green(greenpixelColor) == 255 && Color.blue(greenpixelColor) == 0) {
-                    int replaceostaPixel = ostatexture.getPixel(x, y);
-                    newBitmap.setPixel(x, y, replaceostaPixel);
-                }
-            }
-            //background.setBackground(new BitmapDrawable(getResources(), newBitmap));
-        }
-        
-        
-		
-		
-		
-		 
-		// Set the modified bitmap as the background image
-		
-		background.setBackground(new BitmapDrawable(getResources(), newBitmap));
-        
-      
-	}
+	
 	
 	
 	
@@ -1960,7 +1768,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         final  FrameLayout burbulilayout = (FrameLayout) findViewById(R.id.burbulilayout);
 		TextView money_count = findViewById(R.id.moneyLabel);
 		Context context = this;
-        
+        ImageView star = findViewById(R.id.star);
         
         
         
@@ -1986,7 +1794,14 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     rotateobject.setX(originalX);
                     rotateobject.setY(originalY);
 					youlose.setVisibility(View.VISIBLE);
-					myButton.setVisibility(view.VISIBLE);
+					myButton.setVisibility(View.VISIBLE);
+					rotateobject.setVisibility(View.INVISIBLE);
+					
+					if (ismoneycollected == true) {
+					ismoneycollected = false;
+					star.setVisibility(View.VISIBLE);
+					}
+					
 					isonpause = true;
 					rotateobject.setRotation(0);
 					return true;
@@ -1997,9 +1812,20 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     rotateobject.setX(originalX);
                     rotateobject.setY(originalY);
 					youwin.setVisibility(View.VISIBLE);
-					next.setVisibility(view.VISIBLE);
+					next.setVisibility(View.VISIBLE);
+					rotateobject.setVisibility(View.INVISIBLE);
 					isonpause = true;
 					rotateobject.setRotation(0);
+					
+					if (ismoneycollected == true) {
+					money++;
+					money_count.setText(Integer.toString(money));
+					// Save the updated value of money to the shared preferences
+					SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS_KEY, MODE_PRIVATE).edit();
+					editor.putInt(MONEY_KEY, money);
+					editor.apply();
+					ismoneycollected = false;
+					}
 					return true;
 				}
                 
@@ -2065,8 +1891,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
               
 					 
-					 if(newY - draggableObject.getY() >= 30 && newX - draggableObject.getX() >= -60 || cantelepory){
-                         if(newY - draggableObject.getY() >= -30 && newX - draggableObject.getX() <= 160 || cantelepory){
+					 if(newY - draggableObject.getY() >= (getHeight/51) && newX - draggableObject.getX() >= (-getWidth/13) || cantelepory){
+                         if(newY - draggableObject.getY() >= (-getHeight/51) && newX - draggableObject.getX() <= (getWidth/5) || cantelepory){
                          
 					   draggableObject.setX(x - width / 2);
 					   draggableObject.setY(y - height * 2);
@@ -2093,20 +1919,12 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                         // Do something when the ImageViews collide
                     
                         
-                        money++;
-                        money_count.setText(Integer.toString(money));
                         image2.setVisibility(View.INVISIBLE);
                         ismoneycollected = true;
-
-                        // Save the updated value of money to the shared preferences
-                        SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFS_KEY, MODE_PRIVATE).edit();
-                        editor.putInt(MONEY_KEY, money);
-                        editor.apply();
-                       
                     }
 
 					}
-					/*final ImageView burbuliview = new ImageView(this);
+				/*	final ImageView burbuliview = new ImageView(this);
 					
 					burbuliview.setLayoutParams(new LinearLayout.LayoutParams(75, 75));
 					burbuliview.setImageResource(R.drawable.tree1);
@@ -2118,11 +1936,12 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 					
 					
 					
+					
 					float initialScale = 1f;
 					float finalScale = 0.5f;
 					long duration = 255; // in milliseconds
 					Animation scaleAnimation = new ScaleAnimation(initialScale, finalScale, initialScale, finalScale, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-					scaleAnimation.setDuration(duration);
+					scaleAnimation.setDuration(duration); 
 					
 					
 
@@ -2161,7 +1980,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     rotateobject.setX(originalX);
                     rotateobject.setY(originalY);
 					youwin.setVisibility(View.VISIBLE);
-					next.setVisibility(view.VISIBLE);
+					next.setVisibility(View.VISIBLE);
+					rotateobject.setVisibility(View.INVISIBLE);
 					isonpause = true;
 					rotateobject.setRotation(0);
 
@@ -2174,6 +1994,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     rotateobject.setY(originalY);
 					youlose.setVisibility(View.VISIBLE);
 					myButton.setVisibility(View.VISIBLE);
+					rotateobject.setVisibility(View.INVISIBLE);
+					ismoneycollected = false;
 					isonpause = true;
 					rotateobject.setRotation(0);
 					
